@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Test1.Data;
 using Test1.Models;
+using Test1.Services;
 
 namespace Test1.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ProductCategoryService _categoryService;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, ProductCategoryService categoryService)
         {
             _context = context;
+            _categoryService = categoryService;
+            
         }
 
         // GET: Products1
@@ -48,7 +52,7 @@ namespace Test1.Controllers
         // GET: Products1/Create
         public IActionResult Create()
         {
-            ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategories, "ProductCategoryId", "ProductCategoryId");
+            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "ProductCategoryId");
             return View();
         }
 
@@ -65,7 +69,7 @@ namespace Test1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategories, "ProductCategoryId", "ProductCategoryId", product.ProductCategoryId);
+            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "ProductCategoryId", product.ProductCategoryId);
             return View(product);
         }
 
@@ -82,7 +86,7 @@ namespace Test1.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategories, "ProductCategoryId", "ProductCategoryId", product.ProductCategoryId);
+            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "ProductCategoryId", product.ProductCategoryId);
             return View(product);
         }
 
@@ -118,7 +122,7 @@ namespace Test1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategories, "ProductCategoryId", "ProductCategoryId", product.ProductCategoryId);
+            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "ProductCategoryId", product.ProductCategoryId);
             return View(product);
         }
 
