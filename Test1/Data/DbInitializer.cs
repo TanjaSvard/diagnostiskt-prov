@@ -19,6 +19,7 @@ namespace Test1.Data
                 var vhs = new ProductCategory { Name = "VHS"};
 
                 context.ProductCategories.AddRange(tv, dvd, vhs);
+                context.SaveChanges();
             }
             }
         }

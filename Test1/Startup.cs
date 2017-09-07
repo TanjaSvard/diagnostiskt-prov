@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Test1.Data;
 using Test1.Models;
 using Test1.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Test1
 {
@@ -37,13 +38,17 @@ namespace Test1
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<ProductCategoryService>();
 
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext context)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -65,6 +70,8 @@ namespace Test1
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbInitializer.Initialize(context);
         }
     }
 }
