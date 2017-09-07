@@ -72,7 +72,7 @@ namespace Test1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "ProductCategoryId", product.ProductCategoryId);
+            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "Name");
             return View(product);
         }
 
@@ -89,7 +89,7 @@ namespace Test1.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "ProductCategoryId", product.ProductCategoryId);
+            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "Name", product.ProductCategoryId);
             return View(product);
         }
 
@@ -125,7 +125,7 @@ namespace Test1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "ProductCategoryId", product.ProductCategoryId);
+            ViewData["ProductCategoryId"] = new SelectList(_categoryService.GetSelectList(), "ProductCategoryId", "Name", product.ProductCategoryId);
             return View(product);
         }
 
