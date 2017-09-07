@@ -9,5 +9,6 @@ namespace Test1.Models
     {
         public int ProductCategoryId { get; set; }
         public string Name { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

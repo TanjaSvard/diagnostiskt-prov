@@ -17,6 +17,12 @@ namespace Test1.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Product>()
+              .HasOne(c => c.ProductCategory)
+              .WithMany(d => d.Products)
+              .HasForeignKey(c => c.ProductCategoryId);
+
+
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
