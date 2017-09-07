@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Test1.Data;
 using Test1.Models;
 using Test1.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Test1.Controllers
 {
@@ -15,12 +16,18 @@ namespace Test1.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ProductCategoryService _categoryService;
+        private readonly ILogger _logger;
+        //private readonly ITodoRepository _todoRepository;
 
-        public ProductsController(ApplicationDbContext context, ProductCategoryService categoryService)
+        public ProductsController(ApplicationDbContext context, ProductCategoryService categoryService, ILogger logger)
         {
             _context = context;
             _categoryService = categoryService;
-            
+            _logger = logger;
+          
+
+
+
         }
 
         // GET: Products1
