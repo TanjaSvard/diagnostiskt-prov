@@ -16,20 +16,22 @@ namespace Test1.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ProductCategoryService _categoryService;
-       
+        private readonly ILogger _logger;
 
-        public ProductsController(ApplicationDbContext context, ProductCategoryService categoryService)
+
+        public ProductsController(ApplicationDbContext context, ProductCategoryService categoryService, ILogger<ProductsController> logger)
         {
             _context = context;
             _categoryService = categoryService;
+            _logger = logger;
            
-
         }
 
         // GET: Products1
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Products.Include(p => p.ProductCategory);
+            _logger.LogWarning("With great powers comes great responsibilities");
             return View(await applicationDbContext.ToListAsync());
         }
 
