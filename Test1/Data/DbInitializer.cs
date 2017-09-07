@@ -18,6 +18,11 @@ namespace Test1.Data
                 var dvd = new ProductCategory { Name = "DVD"};
                 var vhs = new ProductCategory { Name = "VHS"};
 
+
+                var tvSamsung = new Product  { Name = "Samsung", Price = 8000, ProductCategory = tv };
+                var dvdAsus = new Product{ Name = "Asus", Price = 3000, ProductCategory = dvd };
+
+                context.Products.AddRange(tvSamsung, dvdAsus);
                 context.ProductCategories.AddRange(tv, dvd, vhs);
                 context.SaveChanges();
             }
